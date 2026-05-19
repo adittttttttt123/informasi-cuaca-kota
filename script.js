@@ -127,6 +127,15 @@ function updateUI(city, country, timezone, current) {
     if (timeUpdateInterval) clearInterval(timeUpdateInterval);
     timeUpdateInterval = setInterval(() => updateTime(timezone), 1000);
     
+    // Update Ticker
+    const tickerTextEl = document.getElementById('ticker-text');
+    if (tickerTextEl) {
+        let advice = current.is_day ? "Selamat beraktivitas!" : "Selamat beristirahat!";
+        if (current.weather_code >= 51 && current.weather_code <= 65) advice = "Sedia payung sebelum hujan!";
+        if (current.weather_code >= 95) advice = "Harap berhati-hati dengan cuaca buruk!";
+        tickerTextEl.textContent = `INFO CUACA: Saat ini cuaca di ${city} terpantau ${weather.desc.toLowerCase()} dengan suhu mencapai ${Math.round(current.temperature_2m)}°C. Kelembapan berada di angka ${current.relative_humidity_2m}% dan kecepatan angin ${current.wind_speed_10m} km/h. ${advice}`;
+    }
+    
     // Show Card
     weatherCard.style.display = 'block';
     setTimeout(() => {
