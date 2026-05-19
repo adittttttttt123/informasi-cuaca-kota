@@ -117,10 +117,7 @@ header {
     background: rgba(255, 255, 255, 0.25);
 }
 
-.search-icon {
-    color: var(--text-primary);
-    margin-right: 15px;
-}
+
 
 #city-input {
     flex: 1;
@@ -160,13 +157,21 @@ header {
 #search-btn {
     background: rgba(255, 255, 255, 0.95);
     border: none;
-    border-radius: 40px;
-    padding: 12px 25px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #1a4f76;
-    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#search-btn i {
+    width: 20px;
+    height: 20px;
 }
 
 #search-btn:hover {
