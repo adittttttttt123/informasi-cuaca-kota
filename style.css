@@ -35,6 +35,39 @@ body.theme-night {
     background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
 }
 
+/* Background Decorations */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    animation: floatBg 15s infinite alternate ease-in-out;
+}
+
+body::before {
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.15);
+    top: 10%;
+    left: -150px;
+}
+
+body::after {
+    width: 600px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.1);
+    bottom: 5%;
+    right: -200px;
+    animation-delay: -5s;
+}
+
+@keyframes floatBg {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(40px, -40px) scale(1.1); }
+}
+
 .app-container {
     width: 100%;
     max-width: 420px;
@@ -331,8 +364,7 @@ header {
 .watermark {
     position: fixed;
     bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 20px;
     z-index: 1000;
 }
 
