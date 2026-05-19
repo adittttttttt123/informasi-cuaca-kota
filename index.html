@@ -47,7 +47,7 @@
                     <div class="weather-desc" id="weather-desc">--</div>
                 </div>
 
-                <div class="weather-details">
+                <div class="weather-details grid-details">
                     <div class="detail-item">
                         <i data-lucide="droplets"></i>
                         <div class="detail-info">
@@ -61,6 +61,34 @@
                             <span class="detail-label">Angin</span>
                             <span class="detail-value" id="wind-value">-- km/h</span>
                         </div>
+                    </div>
+                    <div class="detail-item">
+                        <i data-lucide="gauge"></i>
+                        <div class="detail-info">
+                            <span class="detail-label">Tekanan</span>
+                            <span class="detail-value" id="pressure-value">-- hPa</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i data-lucide="zap"></i>
+                        <div class="detail-info">
+                            <span class="detail-label">Hembusan</span>
+                            <span class="detail-value" id="gust-value">-- km/h</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="forecast-section">
+                    <h3 class="section-title">Prakiraan Per Jam</h3>
+                    <div class="hourly-container" id="hourly-forecast">
+                        <!-- JS will populate -->
+                    </div>
+                </div>
+
+                <div class="forecast-section">
+                    <h3 class="section-title">3 Hari Kedepan</h3>
+                    <div class="daily-container" id="daily-forecast">
+                        <!-- JS will populate -->
                     </div>
                 </div>
             </div>

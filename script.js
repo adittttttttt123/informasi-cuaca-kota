@@ -75,10 +75,10 @@ async function getWeatherData(city) {
         const { latitude, longitude, name, country, timezone } = location;
         
         // 2. Weather API
-        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,is_day,weather_code,wind_speed_10m&timezone=${timezone || 'auto'}`);
+        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,is_day,weather_code,wind_speed_10m,wind_gusts_10m,surface_pressure&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=${timezone || 'auto'}`);
         const weatherData = await weatherRes.json();
         
-        updateUI(name, country, timezone || weatherData.timezone, weatherData.current);
+        updateUI(name, country, timezone || weatherData.timezone, weatherData);
         
     } catch (error) {
         showError();
@@ -88,13 +88,69 @@ async function getWeatherData(city) {
     }
 }
 
-function updateUI(city, country, timezone, current) {
+function updateUI(city, country, timezone, data) {
+    const current = data.current;
+    
     // Update Text Data
     cityNameEl.textContent = city;
     countryNameEl.textContent = country || '';
     tempValueEl.textContent = Math.round(current.temperature_2m);
     humidityValueEl.textContent = `${current.relative_humidity_2m}%`;
     windValueEl.textContent = `${current.wind_speed_10m} km/h`;
+    
+    const pressureEl = document.getElementById('pressure-value');
+    if(pressureEl) pressureEl.textContent = `${Math.round(current.surface_pressure)} hPa`;
+    
+    const gustEl = document.getElementById('gust-value');
+    if(gustEl) gustEl.textContent = `${current.wind_gusts_10m} km/h`;
+    
+    // Hourly Forecast (Next 5 hours)
+    const hourlyEl = document.getElementById('hourly-forecast');
+    if (hourlyEl && data.hourly) {
+        hourlyEl.innerHTML = '';
+        let startIndex = data.hourly.time.findIndex(t => new Date(t).getTime() > new Date().getTime());
+        if(startIndex === -1) startIndex = 0;
+        
+        for (let i = startIndex; i < startIndex + 5; i++) {
+            if(!data.hourly.time[i]) break;
+            const hourTime = new Date(data.hourly.time[i]).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            const hWeather = weatherCodes[data.hourly.weather_code[i]] || { icon: 'cloud' };
+            const hTemp = Math.round(data.hourly.temperature_2m[i]);
+            
+            hourlyEl.innerHTML += `
+                <div class="hourly-item">
+                    <span class="hourly-time">${hourTime}</span>
+                    <i data-lucide="${hWeather.icon}" class="hourly-icon"></i>
+                    <span class="hourly-temp">${hTemp}°</span>
+                </div>
+            `;
+        }
+    }
+
+    // Daily Forecast (Next 3 days)
+    const dailyEl = document.getElementById('daily-forecast');
+    if (dailyEl && data.daily) {
+        dailyEl.innerHTML = '';
+        for (let i = 1; i <= 3; i++) {
+            if(!data.daily.time[i]) break;
+            const dateObj = new Date(data.daily.time[i]);
+            const dayName = dateObj.toLocaleDateString('id-ID', { weekday: 'long' });
+            const dWeather = weatherCodes[data.daily.weather_code[i]] || { icon: 'cloud' };
+            const maxT = Math.round(data.daily.temperature_2m_max[i]);
+            const minT = Math.round(data.daily.temperature_2m_min[i]);
+            
+            dailyEl.innerHTML += `
+                <div class="daily-item">
+                    <span class="daily-day">${dayName}</span>
+                    <i data-lucide="${dWeather.icon}" class="daily-icon"></i>
+                    <div class="daily-temp-range">
+                        <span class="temp-min">${minT}°</span>
+                        <span class="temp-max">${maxT}°</span>
+                    </div>
+                </div>
+            `;
+        }
+    }
     
     // Weather Code & Icon
     const weather = weatherCodes[current.weather_code] || { desc: 'Tidak Diketahui', icon: 'cloud' };
