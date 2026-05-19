@@ -37,7 +37,7 @@ body.theme-night {
 
 .app-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 420px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -139,7 +139,7 @@ header {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 35px;
-    padding: 40px;
+    padding: 30px;
     box-shadow: var(--glass-shadow);
     opacity: 0;
     transform: translateY(30px) scale(0.95);
@@ -161,7 +161,7 @@ header {
 }
 
 #city-name {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.5px;
@@ -179,7 +179,7 @@ header {
 }
 
 #local-time {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 
@@ -209,8 +209,8 @@ header {
 }
 
 .main-icon {
-    width: 140px;
-    height: 140px;
+    width: 90px;
+    height: 90px;
 }
 
 .temperature {
@@ -220,7 +220,7 @@ header {
 }
 
 #temp-value {
-    font-size: 6.5rem;
+    font-size: 4.5rem;
     font-weight: 800;
     line-height: 1;
     letter-spacing: -3px;
@@ -228,7 +228,7 @@ header {
 }
 
 .temp-unit {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
     font-weight: 600;
     margin-top: 15px;
     margin-left: 5px;
@@ -249,7 +249,7 @@ header {
     background: rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 25px;
-    padding: 25px;
+    padding: 15px 20px;
 }
 
 .detail-item {
@@ -330,35 +330,25 @@ header {
 /* Watermark */
 .watermark {
     position: fixed;
-    bottom: 20px;
+    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    padding: 8px 15px;
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.1);
     z-index: 1000;
 }
 
 .watermark a {
-    color: white;
     text-decoration: none;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
     transition: all 0.3s ease;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.watermark a strong {
+    color: var(--text-primary);
+    font-weight: 700;
 }
 
 .watermark a:hover {
-    color: #6dd5fa;
-    transform: scale(1.05);
-}
-
-.watermark i {
-    width: 18px;
-    height: 18px;
+    opacity: 0.8;
 }
