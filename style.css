@@ -27,12 +27,24 @@ body {
 }
 
 /* Dynamic Themes */
-body.theme-day {
+body.theme-day-clear {
     background: linear-gradient(135deg, #2980b9 0%, #6dd5fa 50%, #ffffff 100%);
 }
 
-body.theme-night {
+body.theme-day-cloudy {
+    background: linear-gradient(135deg, #757f9a 0%, #d7dde8 100%);
+}
+
+body.theme-rain {
+    background: linear-gradient(135deg, #373b44 0%, #4286f4 100%);
+}
+
+body.theme-night-clear {
     background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+}
+
+body.theme-night-cloudy {
+    background: linear-gradient(135deg, #232526 0%, #414345 100%);
 }
 
 /* Background Decorations */
@@ -123,6 +135,26 @@ header {
 #city-input::placeholder {
     color: rgba(255, 255, 255, 0.7);
     font-size: 0.95rem;
+}
+
+#location-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, color 0.2s;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+#location-btn:hover {
+    transform: scale(1.1);
+    color: #6dd5fa;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 #search-btn {
@@ -246,6 +278,38 @@ header {
 .main-icon {
     width: 90px;
     height: 90px;
+}
+
+/* Icon Animations */
+.lucide-sun {
+    animation: spinSlow 15s linear infinite;
+}
+@keyframes spinSlow {
+    100% { transform: rotate(360deg); }
+}
+
+.lucide-cloud {
+    animation: cloudFloat 4s ease-in-out infinite;
+}
+@keyframes cloudFloat {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+}
+
+.lucide-cloud-rain, .lucide-cloud-lightning, .lucide-cloud-drizzle {
+    animation: rainDrop 2s ease-in-out infinite;
+}
+@keyframes rainDrop {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+}
+
+.lucide-wind {
+    animation: windBlow 3s ease-in-out infinite;
+}
+@keyframes windBlow {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
 }
 
 .temperature {

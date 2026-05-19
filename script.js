@@ -49,6 +49,38 @@ searchBtn.addEventListener('click', () => {
     }
 });
 
+const locationBtn = document.getElementById('location-btn');
+locationBtn.addEventListener('click', () => {
+    stopAutoCycle();
+    if (navigator.geolocation) {
+        showLoading();
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            try {
+                const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=id`);
+                const geoData = await geoRes.json();
+                const city = geoData.city || geoData.locality || "Lokasi Saat Ini";
+                const country = geoData.countryName || "";
+                
+                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,is_day,weather_code,wind_speed_10m,wind_gusts_10m,surface_pressure&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`);
+                const weatherData = await weatherRes.json();
+                
+                updateUI(city, country, weatherData.timezone, weatherData);
+            } catch (error) {
+                showError();
+            } finally {
+                hideLoading();
+            }
+        }, () => {
+            alert("Gagal mendapatkan lokasi Anda. Pastikan izin GPS diberikan.");
+            hideLoading();
+        });
+    } else {
+        alert("Browser Anda tidak mendukung geolokasi.");
+    }
+});
+
 cityInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         const city = cityInput.value.trim();
@@ -170,13 +202,18 @@ function updateUI(city, country, timezone, data) {
     lucide.createIcons();
     
     // Background Theme (Dynamic UI)
+    body.className = ''; // reset previous themes
+    let theme = '';
     if (current.is_day === 1) {
-        body.classList.remove('theme-night');
-        body.classList.add('theme-day');
+        if (current.weather_code >= 51 && current.weather_code <= 99) theme = 'theme-rain';
+        else if (current.weather_code >= 1 && current.weather_code <= 3) theme = 'theme-day-cloudy';
+        else theme = 'theme-day-clear';
     } else {
-        body.classList.remove('theme-day');
-        body.classList.add('theme-night');
+        if (current.weather_code >= 51 && current.weather_code <= 99) theme = 'theme-rain';
+        else if (current.weather_code >= 1 && current.weather_code <= 3) theme = 'theme-night-cloudy';
+        else theme = 'theme-night-clear';
     }
+    body.classList.add(theme);
     
     // Start Time Updates
     updateTime(timezone);
