@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Cuaca & Waktu Dunia</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="theme-day">
+    <div class="app-container">
+        <header>
+            <div class="search-box">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="city-input" placeholder="Cari kota (mis: Jakarta, Tokyo)..." autocomplete="off">
+                <button id="search-btn">Cari</button>
+            </div>
+            <div class="error-message" id="error-message">Kota tidak ditemukan. Silakan coba lagi.</div>
+        </header>
+
+        <main class="weather-card glass-panel" id="weather-card" style="display: none;">
+            <div class="card-header">
+                <div class="location-info">
+                    <h1 id="city-name">Jakarta</h1>
+                    <p id="country-name">Indonesia</p>
+                </div>
+                <div class="time-info">
+                    <h2 id="local-time">--:--</h2>
+                    <p id="local-date">Memuat waktu...</p>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="weather-main">
+                    <div class="weather-icon-wrapper">
+                        <i data-lucide="sun" id="weather-icon" class="main-icon"></i>
+                    </div>
+                    <div class="temperature">
+                        <span id="temp-value">--</span><span class="temp-unit">°C</span>
+                    </div>
+                    <div class="weather-desc" id="weather-desc">--</div>
+                </div>
+
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <i data-lucide="droplets"></i>
+                        <div class="detail-info">
+                            <span class="detail-label">Kelembapan</span>
+                            <span class="detail-value" id="humidity-value">--%</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i data-lucide="wind"></i>
+                        <div class="detail-info">
+                            <span class="detail-label">Angin</span>
+                            <span class="detail-value" id="wind-value">-- km/h</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <div class="loading-spinner" id="loading">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    
+    <!-- Watermark -->
+    <div class="watermark">
+        <a href="https://github.com/aditttttttttt123" target="_blank" rel="noopener noreferrer">
+            <i data-lucide="github"></i> aditttttttttt123
+        </a>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>
