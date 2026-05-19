@@ -122,23 +122,25 @@ header {
 
 #city-input::placeholder {
     color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
 }
 
 #search-btn {
-    background: rgba(255, 255, 255, 0.25);
-    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
     border-radius: 40px;
     padding: 12px 25px;
-    color: white;
-    font-weight: 600;
+    color: #1a4f76;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 #search-btn:hover {
-    background: rgba(255, 255, 255, 0.4);
+    background: #ffffff;
     transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 #search-btn:active {
