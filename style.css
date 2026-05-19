@@ -544,11 +544,13 @@ header {
 }
 
 #ticker-text {
-    font-size: 0.95rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
     color: #ffffff;
     padding-left: 100vw;
-    font-weight: 500;
-    letter-spacing: 0.5px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 @keyframes ticker {
